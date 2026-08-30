@@ -1,1 +1,445 @@
-:)
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanulói Portál</title>
+    <!-- Font Awesome az ikonok betöltéséhez -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --text-white: #ffffff;
+            --color-robotics: #ef4444; 
+            --color-grade-9: #10b981; 
+            --color-grade-10: #3b82f6; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            color: #f8fafc;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* Alapértelmezetten rejtett 11. osztály almenü */
+        #class-11-section {
+            display: none; 
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tile {
+            background-color: #1e1e1e;
+            color: #f1f5f9;
+            text-decoration: none;
+            padding: 30px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            gap: 15px;
+            border: 2px solid var(--accent-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tile i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--accent-color), inset 0 0 10px var(--accent-color);
+            background-color: #242424;
+        }
+
+        .tile:hover i {
+            text-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* Kisméretű Vissza gomb */
+        .btn-small {
+            margin-top: 40px;
+            padding: 10px 20px;
+            background-color: #1e1e1e;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #94a3b8;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-small:hover {
+            background-color: #242424;
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(148, 163, 184, 0.4);
+        }
+
+        /* Színek (Főmenü) */
+        .tile-1 { --accent-color: #3b82f6; } /* Kék */
+        .tile-2 { --accent-color: #10b981; } /* Zöld */
+        .tile-3 { --accent-color: #f97316; } /* Narancs */
+        .tile-4 { --accent-color: #8b5cf6; } /* Lila */
+        .tile-5 { --accent-color: #ef4444; } /* Piros */
+        .tile-6 { --accent-color: #eab308; } /* Sárga */
+
+        /* Színek (Almenü) */
+        .tile-points { --accent-color: #0ea5e9; } /* Világoskék */
+
+        /* Modal Stílusok */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8); 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            border: 2px solid var(--accent-color, #0ea5e9);
+            position: relative;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .close-btn {
+            color: #94a3b8;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #2a2a2a;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+        }
+
+        .btn-query {
+            background-color: #0ea5e9;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-query:hover {
+            background-color: #0284c7;
+            box-shadow: 0 0 10px #0ea5e9;
+        }
+
+        .huge-score {
+            font-size: 5rem;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .student-name {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #f1f5f9;
+        }
+
+        .scale-wrapper { width: 100%; margin-top: 20px; }
+        .scale-labels { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; font-weight: bold; }
+        .scale-bar { 
+            width: 100%; 
+            height: 12px; 
+            background: linear-gradient(to right, var(--color-robotics), #fbbf24, var(--color-grade-9), var(--color-grade-10)); 
+            border-radius: 6px; 
+            position: relative; 
+        }
+        .scale-marker { 
+            width: 4px; 
+            height: 24px; 
+            background: white; 
+            border: 2px solid; 
+            position: absolute; 
+            top: -6px; 
+            transition: left 0.5s ease-out; 
+            left: 50%; 
+            transform: translateX(-50%); 
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="main-title">Tananyagok és Információk</h1>
+
+    <!-- FŐMENÜ NÉZET -->
+    <div id="main-view" class="grid-container">
+        <!-- 1. Csempe: 11. osztály[cite: 1] -->
+        <a href="#" class="tile tile-1" id="btn-11-class">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>11. osztály</span>
+        </a>
+
+        <!-- 2. Csempe: KZMK üvegcsék[cite: 1] -->
+        <a href="#" class="tile tile-2">
+            <i class="fa-solid fa-flask"></i>
+            <span>KZMK üvegcsék</span>
+        </a>
+
+        <!-- 3. Csempe: Robotika szakkör[cite: 1] -->
+        <a href="#" class="tile tile-3">
+            <i class="fa-solid fa-robot"></i>
+            <span>Robotika szakkör</span>
+        </a>
+
+        <!-- 4. Csempe: Térfél[cite: 1] -->
+        <a href="#" class="tile tile-4">
+            <img src="./terfel/10_2.png" alt="Térfél logó" style="height: 2.5rem; width: auto;">
+            <span>Térfél</span>
+        </a>
+
+        <!-- 5. Csempe: MS Office otthoni beállítása[cite: 1] -->
+        <a href="./tisztaszoftver" class="tile tile-5">
+            <i class="fa-brands fa-microsoft"></i>
+            <span>MS Office otthoni beállítása</span>
+        </a>
+
+        <!-- 6. Csempe: PyCharm[cite: 1] -->
+        <a href="#" class="tile tile-6">
+            <i class="fa-brands fa-python"></i>
+            <span>PyCharm telepítése és használata</span>
+        </a>
+    </div>
+
+    <!-- 11. OSZTÁLY ALMENÜ SZEKCIÓ[cite: 1] -->
+    <div id="class-11-section">
+        <div class="grid-container">
+            <a href="#" class="tile tile-points" id="openQueryBtn">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Pontok megtekintése</span>
+            </a>
+        </div>
+        
+        <a href="#" class="btn-small" id="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Vissza a főmenübe</span>
+        </a>
+    </div>
+
+    <!-- Pontszám Lekérdező Modal -->
+    <div id="queryModal" class="modal">
+        <div class="modal-content modal-body">
+            <span class="close-btn" id="closeQueryModal">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--text-white);">+/- pontszám lekérdezése</h2>
+            
+            <form id="queryForm">
+                <div class="form-group">
+                    <input type="text" id="omInput" name="om" maxlength="11" placeholder="OM azonosító" required>
+                </div>
+                <button type="submit" class="btn-query" style="width: 100%;">Lekérdezés</button>
+            </form>
+
+            <!-- Eredmény Megjelenítő -->
+            <div id="resultContainer" style="display: none;">
+                <div id="scoreDisplay" class="huge-score">0</div>
+                <div id="nameDisplay" class="student-name">Név</div>
+                
+                <div class="scale-wrapper">
+                    <div class="scale-labels">
+                        <span style="color: var(--color-robotics);">elégtelen</span>
+                        <span style="color: var(--color-grade-10);">jeles</span>
+                    </div>
+                    <div class="scale-bar">
+                        <div id="scaleMarker" class="scale-marker"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hibaüzenet doboz -->
+            <p id="errorMsg" style="color: var(--color-robotics); font-weight: bold; margin-top: 15px; display: none; text-align: center;"></p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT A VÁLTÁSHOZ ÉS A PONTSZÁM LEKÉRDEZÉSHEZ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // NAVIGÁCIÓS LOGIKA[cite: 1]
+            const btn11Class = document.getElementById('btn-11-class');
+            const btnBack = document.getElementById('btn-back');
+            const mainView = document.getElementById('main-view');
+            const class11Section = document.getElementById('class-11-section');
+            const mainTitle = document.getElementById('main-title');
+
+            btn11Class.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                mainView.style.display = 'none';
+                class11Section.style.display = 'flex';
+                mainTitle.textContent = '11. osztály'; 
+            });
+
+            btnBack.addEventListener('click', (e) => {
+                e.preventDefault();
+                class11Section.style.display = 'none';
+                mainView.style.display = 'grid';
+                mainTitle.textContent = 'Tananyagok és Információk'; 
+            });
+
+            // PONTSZÁM LEKÉRDEZŐ LOGIKA
+            const queryModal = document.getElementById('queryModal');
+            const openQueryBtn = document.getElementById('openQueryBtn');
+            const closeQueryModal = document.getElementById('closeQueryModal');
+            const queryForm = document.getElementById('queryForm');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            openQueryBtn.onclick = (e) => { 
+                e.preventDefault();
+                queryModal.style.display = "flex"; 
+                document.getElementById('resultContainer').style.display = 'none';
+                errorMsg.style.display = 'none';
+                queryForm.style.display = 'block';
+                document.getElementById('omInput').value = '';
+            }
+            closeQueryModal.onclick = () => { queryModal.style.display = "none"; }
+            window.onclick = (event) => { if (event.target === queryModal) queryModal.style.display = "none"; }
+
+            function getColorForScore(score) {
+                if (score <= -3) return "var(--color-robotics)"; 
+                if (score >= -2 && score <= -1) return "#fbbf24"; 
+                if (score >= 0 && score <= 2) return "var(--color-grade-9)"; 
+                if (score >= 3) return "var(--color-grade-10)"; 
+                return "var(--text-white)";
+            }
+
+            queryForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const omId = document.getElementById('omInput').value.trim();
+                const submitBtn = queryForm.querySelector('button[type="submit"]');
+                const resultContainer = document.getElementById('resultContainer');
+                const scoreDisplay = document.getElementById('scoreDisplay');
+                const nameDisplay = document.getElementById('nameDisplay');
+                const scaleMarker = document.getElementById('scaleMarker');
+
+                if (!/^7[0-9]{10}$/.test(omId)) {
+                    errorMsg.innerText = "Hibás formátum!";
+                    errorMsg.style.display = 'block';
+                    return; 
+                }
+
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyeqwEyqMrMFtTLvlbQflE5_Mpiv_gZajbS1UbDyWzTPO4ZjtklPqp9rY-4yPBnrMkk/exec'; 
+
+                submitBtn.innerText = 'Keresés...';
+                submitBtn.disabled = true;
+                errorMsg.style.display = 'none';
+
+                fetch(`${scriptUrl}?om=${omId}&osztaly=11`)
+                    .then(response => response.json())
+                    .then(data => {
+                        submitBtn.innerText = 'Lekérdezés';
+                        submitBtn.disabled = false;
+                        
+                        if (data.success) {
+                            queryForm.style.display = 'none'; 
+                            resultContainer.style.display = 'block'; 
+                            
+                            const score = parseInt(data.pont, 10) || 0;
+                            const finalScore = score > 5 ? 5 : (score < -5 ? -5 : score); 
+                            
+                            scoreDisplay.innerText = finalScore > 0 ? `+${finalScore}` : finalScore;
+                            scoreDisplay.style.color = getColorForScore(finalScore);
+                            nameDisplay.innerText = data.nev;
+
+                            const percentage = ((finalScore + 5) / 10) * 100;
+                            
+                            setTimeout(() => {
+                                scaleMarker.style.left = `${percentage}%`;
+                                scaleMarker.style.borderColor = getColorForScore(finalScore);
+                            }, 100);
+
+                        } else {
+                            errorMsg.innerText = data.message;
+                            errorMsg.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        submitBtn.innerText = 'Lekérdezés';
+                        submitBtn.disabled = false;
+                        errorMsg.innerText = "Hálózati hiba.";
+                        errorMsg.style.display = 'block';
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

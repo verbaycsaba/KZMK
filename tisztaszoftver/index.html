@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tisztaszoftver - SzV::KZMK</title>
+    <!-- Font Awesome az ikonokhoz -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Fejléc stílusok */
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #f8fafc;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Fő kártya sötét stílusa piros-piros/narancs neon kerettel (mint a főoldali csempe) */
+        .content-card {
+            background-color: #1e1e1e;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-header i {
+            font-size: 2rem;
+            color: #ef4444;
+        }
+
+        .card-header h2 {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .card-text {
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #f8fafc;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        /* Lépések listája */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            background-color: #262626;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ef4444;
+        }
+
+        .step-number {
+            background-color: #ef4444;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .step-content h4 {
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .step-content p {
+            color: #94a3b8;
+            line-height: 1.5;
+            font-size: 0.98rem;
+        }
+
+        /* Információs dobozok */
+        .info-box {
+            background-color: #262626;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Linkek testreszabása */
+        .theme-link {
+            color: #38bdf8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .theme-link:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+
+        /* Vissza gomb */
+        .btn-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #1e1e1e;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background-color: #242424;
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(148, 163, 184, 0.4);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Vissza gomb a főoldalra -->
+        <a href=".." class="btn-small">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Vissza a főmenübe</span>
+        </a>
+
+        <h1 class="header-title">MS Office ingyen</h1>
+        <p class="header-subtitle">Útmutató a Tisztaszoftver Program használatához</p>
+
+        <!-- Fő tartalom kártya -->
+        <div class="content-card">
+            <div class="card-header">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h2>Mi az a Tisztaszoftver?</h2>
+            </div>
+            <p class="card-text">
+                A Tisztaszoftver program keretében minden magyarországi diák <strong>ingyenesen</strong> letöltheti és használhatja a Microsoft 365 programcsomagot (Word, Excel, PowerPoint, stb.) akár 5 eszközön.
+            </p>
+
+            <h3 class="section-title">Így tudod beállítani magadnak:</h3>
+            
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Készítsd elő a diákigazolványod</h4>
+                        <p>Szükséged lesz a <strong style="color: #ffffff;">11 jegyű oktatási azonosítódra</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Regisztrálj a portálon</h4>
+                        <p>Regisztrálj <a href="https://services.pro-m.hu/login" target="_blank" class="theme-link">ide kattintva</a> a KRÉTA fiókodba való bejelentkezés segítségével. Ne felejtsd el az intézmény résznél a <em>Kórusiskolát helyesen kiválasztani</em>! (Amennyiben a link nem működik, keresd fel a <a href="https://tisztaszoftver.hu/" target="_blank" class="theme-link">tisztaszoftver.hu</a> <em>Igénylés</em> menüpontját.)</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Mentsd el a belépési adataidat!</h4>
+                        <p>A sikeres regisztráció után az <strong>Office 365 igénylése</strong> menüpontban tudsz generálni magadnak egy belépési email címet. Ennek a <em>@m365.edu.hu</em> előtti része egy hosszú katyvasz, nem kell megjegyezned, csak másold ki a teljes email címet.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Programok letöltése</h4>
+                        <p>Látogass el a <a href="https://portal.office.com/" target="_blank" class="theme-link">portal.office.com</a> oldalra. Másold be a 3. lépésben kapott email címet, majd a <em>Tovább</em> gombra kattintva a felület átirányít a 2. lépésben már látott felületre, itt lépj be ugyanígy. Ezután már használhatod a webes Word/Excel/PowerPointot, vagy az <strong>Office telepítése</strong> gombra kattintva letöltheted a gépedre a programokat. (Ha már telepítve vannak az MS Office alkalmazásai a gépedre, akkor kihagyhatod ezt a lépést.)</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Az asztali alkalmazások aktiválása</h4>
+                        <p>Nyisd meg valamelyik letöltött MS Office alkalmazást és a jobb felül található <em>Bejelentkezés</em> gomb segítségével végezd el a bejelentkezést a 4. lépéshez hasonlóan.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Készen vagy</h4>
+                        <p>Élvezd az ingyenes Microsoft Office programok használatát! Ha váratlanul valamiért kijelentkeztetne az alkalmazás, lépj be újra az előző pontban leírtak szerint. A megjegyezhetetlen email címet újra elő tudod keresni, ha bejelentkezel a 2. pontban szereplő regisztrációs oldalon.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                Részletes leírás <a href="https://drive.google.com/file/d/1A3q_N9ggav3g4kxpd5JBjb3owfavE-kH/view?usp=drive_link" target="_blank" class="theme-link">ide kattintva</a> érhető el.
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Tipp:</strong> A <em>@m365.edu.hu</em> végződésű email címet jegyezd fel egy szöveges fájlba, amit gyorsabban elérsz, mint a KRÉTÁs bejelentkezéssel való vacakolás.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
